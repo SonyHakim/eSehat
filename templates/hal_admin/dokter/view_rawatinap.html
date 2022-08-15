@@ -1,0 +1,120 @@
+{% extends "hal_admin/base.html" %}{% load static %}
+
+{% block title %}
+Data Pasien
+{% endblock title %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %} ">
+<link rel="stylesheet"
+    href="{% static 'hal_admin/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %} ">
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css' %} ">
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/select2/dist/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/quill/dist/quill.core.css' %}">
+{% endblock header %}
+{% block konten %}
+
+<div class="container-fluid mt-3">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <!-- {{ request.get_host }}{{ request.get_full_path }} -->
+                <div class="card-header">
+                    <h3 class="mb-0">Detail Rawat Inap </h3>
+                </div>
+                {% comment %} {{data.iddokter}} {% endcomment %}
+                <!-- Card body -->
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="example-text" class="col-md-2 col-form-label form-control-label">No RM
+                                Pasien</label>
+                            <div class="col-md-10">
+                                <input readonly name="norm" class="form-control" type="text"
+                                    value="{{ data.idpendaftaran.norm.norm }}" id="example-text">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-md-2 col-form-label form-control-label">Nama
+                                Pasien</label>
+                            <div class="col-md-10">
+                                <input readonly class="form-control" type="text" name="namapasien" maxlength="200"
+                                    value="{{ data.idpendaftaran.norm.namapasien }}" required
+                                    placeholder="Masukkan Nama Pasien" id="example-text-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-alamat" class="col-md-2 col-form-label form-control-label">Gejala
+                                Awal</label>
+                            <div class="col-md-10">
+                                <textarea readonly class="form-control" name="gejalaawal" id="example-alamat"
+                                    rows="3">{{ data.idpendaftaran.gejalaawal }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input"
+                                class="col-md-2 col-form-label form-control-label">Diagnosa</label>
+                            <div class="col-md-10">
+                                <input readonly class="form-control" type="text" name="diagnosa" maxlength="200"
+                                    value="{{data.id_diagnosa}}" required placeholder="Masukkan Diagnosa"
+                                    id="example-text-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-md-2 col-form-label form-control-label"></label>
+                            <div class="col-md-10">
+                                <input readonly class="form-control" type="text" name="diagnosa" maxlength="200"
+                                    value="{{data.id_diagnosa2}}" required placeholder="Masukkan Diagnosa"
+                                    id="example-text-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-md-2 col-form-label form-control-label"></label>
+                            <div class="col-md-10">
+                                <input readonly class="form-control" type="text" name="diagnosa" maxlength="200"
+                                    value="{{data.id_diagnosa3}}" required placeholder="Masukkan Diagnosa"
+                                    id="example-text-input">
+                            </div>
+                        </div>
+                        <input type="button" class="btn btn-dark"
+                            onclick="location.href='{% url 'dokter:detail_rawatinap' data.idRawatInap.id  %}'"
+                            value="Kembali" />
+                        {% comment %} <input type="button" class="btn btn-success btn-sm"
+                            onclick="location.href='{% url 'dokter:detail_rawatinap' ps.id  %}'" value="Kembali" />
+                        {% endcomment %}
+                        {% comment %} <input type="button" class="btn btn-success btn-sm"
+                            onclick="location.href='{% url 'dokter:detail_rawatinap' %}'" value="Kembali" />
+                        {% endcomment %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Argon Scripts -->
+
+    {% endblock konten %}
+
+    {% block script %}
+    <script src="{% static 'hal_admin/vendor/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'hal_admin/vendor/quill/dist/quill.min.js' %}"></script>
+    <script src="{% static 'hal_admin/vendor/select2/dist/js/select2.min.js' %}"></script>
+    <script src="{% static 'hal_admin/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'hal_admin/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'hal_admin/vendor/datatables.net-select/js/dataTables.select.min.js' %}"></script>
+    <script src="{% static 'hal_admin/js/demo.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#diagnosa').select2();
+        });
+    </script>
+
+
+
+
+    {% endblock script %}

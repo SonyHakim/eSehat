@@ -1,0 +1,165 @@
+{% extends "hal_admin/base.html" %}{% load static %}
+
+{% block title %}
+Detail Rawat Inap Pasien
+{% endblock title %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %} ">
+<link rel="stylesheet"
+  href="{% static 'hal_admin/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %} ">
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css' %} ">
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/select2/dist/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/quill/dist/quill.core.css' %}">
+{% endblock header %}
+{% block konten %}
+
+<!-- Header -->
+<div class="header bg-success pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-white d-inline-block mb-0">Data Pasien</h6>
+        </div>
+        <div class="col-lg-6 col-5 text-right">
+          <!-- <a
+                        href="{% url 'pegawaiadmin:index_pegawaiadmin' %}"
+                        class="btn btn-sm btn-neutral">Tambah Data Pasien</a> -->
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <!-- Card header -->
+        <!-- {{ request.get_host }}{{ request.get_full_path }} -->
+        <div class="card-header">
+          <h3 class="mb-0">Periksa Pasien </h3>
+        </div>
+        {% comment %} {{data.iddokter}} {% endcomment %}
+        <!-- Card body -->
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <!-- <p>
+                      <label for="id_norm">Norm:</label>
+                       <input type="text" name="norm" maxlength="25" required id="id_norm" value="{{ norm }}">
+                      </p>
+                    <p>
+                      <label for="id_namapasien">Namapasien:</label> 
+                      <input type="text" name="namapasien" maxlength="200" required id="id_namapasien">
+                    </p>
+                    <p>
+                      <label for="id_alamat">Alamat:</label> 
+                      <textarea name="alamat" cols="40" rows="10" id="id_alamat">
+                    </textarea></p>
+                    <p><label for="id_ttl">Ttl:</label> <input type="text" name="ttl" required id="id_ttl"></p>
+                    <p><label for="id_notelp">Notelp:</label> <input type="text" name="notelp" maxlength="15" required id="id_notelp"></p> -->
+            <!-- <table>{{ form.as_p }}</table> -->
+
+            {% comment %} <input readonly name="iddokter" class="form-control" type="number" value="{{ id_petugas }}"
+              id="example-text"> {% endcomment %}
+            <div class="form-group row">
+              <label for="example-text" class="col-md-2 col-form-label form-control-label">No RM Pasien</label>
+              <div class="col-md-10">
+                <input readonly name="norm" class="form-control" type="text" value="{{ rInap.idpendaftaran.norm.norm }}"
+                  id="example-text">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="example-text-input" class="col-md-2 col-form-label form-control-label">Nama Pasien</label>
+              <div class="col-md-10">
+                <input readonly class="form-control" type="text" name="namapasien" maxlength="200"
+                  value="{{ rInap.idpendaftaran.norm.namapasien }}" required placeholder="Masukkan Nama Pasien"
+                  id="example-text-input">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="example-alamat" class="col-md-2 col-form-label form-control-label">Gejala Awal</label>
+              <div class="col-md-10">
+                <textarea readonly class="form-control" name="gejalaawal" id="example-alamat"
+                  rows="3">{{ rInap.idpendaftaran.gejalaawal }}</textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="example-text-input" class="col-md-2 col-form-label form-control-label">Tanggal Selesai</label>
+              <div class="col-md-10">
+                <input class="form-control" type="date" name="tanggal_selesai" maxlength="200"
+                  value="{{ rInap.tanggal_selesai }}" id="example-text-input">
+              </div>
+            </div>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-success" type="submit">Selesai</button>
+            </div>
+            <hr>
+            <input type="button" class="btn btn-primary"
+              onclick="location.href='{% url 'dokter:rekamrawatinap' rInap.id  %}'" value="Tambah Data" />
+            <div class="table-responsive py-4">
+              <table class="table table-flush" id="datatable-buttons">
+                <thead class="thead-light">
+                  <tr>
+                    <th>No RM</th>
+                    <th>Diagnosa</th>
+                    <th>Tanggal Periksa</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ps in rMedis %}
+                  <tr>
+                    <td>{{ps.idpendaftaran.norm.norm}}</td>
+                    <td>{{ps.id_diagnosa}}</td>
+                    <td>{{ps.idpendaftaran.created_on|date:'D M Y H:i'}}</td>
+                    <td>
+                      <input type="button" class="btn btn-success btn-sm"
+                        onclick="location.href='{% url 'dokter:periksa_pasien' ps.id  %}'" value="Detail" />
+                      <!--  <a type="button" class="btn btn-outline-danger" href="{% url 'pegawaiadmin:hapuspasien' ps.id  %}" onclick="return confirm('Anda yakin mau menghapus data ini?');">Delete</a> -->
+
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% comment %} <button class="btn btn-primary" type="submit">Send Massage <i
+                class="fa fa-paper-plane ml-2"></i> </button>
+            <button class="btn btn-warning " type="submit">Simpan <i class="fa fa-edit ml-2"></i></button>
+            {% endcomment %}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Argon Scripts -->
+
+  {% endblock konten %}
+
+  {% block script %}
+  <script src="{% static 'hal_admin/vendor/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/quill/dist/quill.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/select2/dist/js/select2.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+  {% comment %} <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+  {% endcomment %}
+  <script src="{% static 'hal_admin/vendor/datatables.net-select/js/dataTables.select.min.js' %}"></script>
+  <script src="{% static 'hal_admin/js/demo.min.js' %}"></script>
+  <script>
+    $(document).ready(function () {
+      $('#diagnosa').select2();
+    });
+  </script>
+
+
+
+
+  {% endblock script %}

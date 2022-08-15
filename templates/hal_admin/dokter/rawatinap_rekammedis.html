@@ -1,0 +1,134 @@
+{% extends "hal_admin/base.html" %}{% load static %}
+
+{% block title %}
+Data Pasien
+{% endblock title %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %} ">
+<link rel="stylesheet"
+  href="{% static 'hal_admin/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %} ">
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css' %} ">
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/select2/dist/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'hal_admin/vendor/quill/dist/quill.core.css' %}">
+{% endblock header %}
+{% block konten %}
+
+<!-- Header -->
+<div class="header bg-success pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-white d-inline-block mb-0">Periksa Pasien</h6>
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item">
+                <a href="{% url 'pegawaiadmin:index_pegawaiadmin' %}">
+                  <i class="fas fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a href="{% url 'dokter:index_dokter' %}">Dokter</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Periksa Pasien</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-lg-6 col-5 text-right">
+          <!-- <a
+                        href="{% url 'pegawaiadmin:index_pegawaiadmin' %}"
+                        class="btn btn-sm btn-neutral">Tambah Data Pasien</a> -->
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <!-- Card header -->
+        <!-- {{ request.get_host }}{{ request.get_full_path }} -->
+        <div class="card-header">
+          <h3 class="mb-0">Periksa Pasien </h3>
+        </div>
+        {% comment %} {{data.iddokter}} {% endcomment %}
+        <!-- Card body -->
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+              <label for="example-norm" class="col-md-2 col-form-label form-control-label">Diagnosa</label>
+              <div class="col-md-10">
+                <!-- <input class="form-control" maxlength="15" required name="notelp" type="tel" placeholder="40-(770)-888-444" > -->
+                <select class="form-control" id="diagnosa" name="diagnosa" required>
+                  <option value={{null}}>
+                    Pilih Diagnosa</option>
+                  {% for Diagnosa in listdiagnosa %}
+                  <option value={{Diagnosa.id}}>
+                    {{Diagnosa.code_diagnosa}} | {{Diagnosa.nama_diagnosa}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="example-norm" class="col-md-2 col-form-label form-control-label">Diagnosa 2</label>
+              <div class="col-md-10">
+                <!-- <input class="form-control" maxlength="15" required name="notelp" type="tel" placeholder="40-(770)-888-444" > -->
+                <select class="form-control" id="diagnosa" name="diagnosa2">
+                  <option value={{null}}>
+                    Pilih Diagnosa</option>
+                  {% for Diagnosa in listdiagnosa %}
+                  <option value={{Diagnosa.id}}>
+                    {{Diagnosa.code_diagnosa}} | {{Diagnosa.nama_diagnosa}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="example-norm" class="col-md-2 col-form-label form-control-label">Diagnosa 3</label>
+              <div class="col-md-10">
+                <!-- <input class="form-control" maxlength="15" required name="notelp" type="tel" placeholder="40-(770)-888-444" > -->
+                <select class="form-control" id="diagnosa" name="diagnosa3">
+                  <option value={{null}}>
+                    Pilih Diagnosa</option>
+                  {% for Diagnosa in listdiagnosa %}
+                  <option value={{Diagnosa.id}}>
+                    {{Diagnosa.code_diagnosa}} | {{Diagnosa.nama_diagnosa}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-warning " type="submit">Simpan <i class="fa fa-edit ml-2"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Argon Scripts -->
+
+  {% endblock konten %}
+
+  {% block script %}
+  <script src="{% static 'hal_admin/vendor/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/quill/dist/quill.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/select2/dist/js/select2.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+  <script src="{% static 'hal_admin/vendor/datatables.net-select/js/dataTables.select.min.js' %}"></script>
+  <script src="{% static 'hal_admin/js/demo.min.js' %}"></script>
+  <script>
+    $(document).ready(function() {
+      $('#diagnosa').select2();
+  });
+  </script>
+  
+
+
+
+  {% endblock script %}
