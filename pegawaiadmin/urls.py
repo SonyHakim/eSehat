@@ -25,6 +25,12 @@ urlpatterns=[
     path('editpegawai/<int:id>', views.edit_pegawai,name='editpegawai'),
     path('hapuspegawai/<int:id>', views.hapus_pegawai,name='hapuspegawai'),
 
+    path('lembaga/', views.get_lembaga,name='lembaga'),
+    path('tambahlembaga/', views.tambah_lembaga,name='tambahlembaga'),
+    path('editlembaga/<int:id>', views.edit_lembaga,name='editlembaga'),
+    path('hapuslembaga/<int:id>', views.hapus_lembaga,name='hapuslembaga'),
+
+
     
 
 

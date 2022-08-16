@@ -6,10 +6,10 @@ from pegawaiadmin.decorators import pegawaiadmin_area
 from pegawaiadmin.models import Pendaftaran, Antrian, BiayaPemeriksaan, Pembayaran
 from dokter.models import RekamMedis, RawatInap
 from datetime import date
-from pasien.models import Pasien
+from pasien.models import Pasien, Lembaga
 from akun.models import DataPegawai, Akun
 from akun.forms import DataPegawaiForm, UserForm
-from pegawaiadmin.forms import AntrianForm, PendaftaranForm
+from pegawaiadmin.forms import AntrianForm, PendaftaranForm, LembagaForm
 from django.utils import timezone
 import datetime
 # from apoteker.models import PemesananObat
@@ -78,15 +78,54 @@ def hapus_pegawai(request, id):
     return redirect("/pegawaiadmin/pegawai/")
 
 @pegawaiadmin_area
-def user(request):
-    hasil = Akun.objects.all()
+def get_lembaga(request):
+    hasil = Lembaga.objects.all()
 
     data = {
         'sessionnya' : request.session['jenis_akun'],
         'namaakun' : request.session['namapegawai'],
         'data': hasil
     }
-    return render(request, 'hal_admin/pegawaiadmin/user.html', data)
+    return render(request, 'hal_admin/pegawaiadmin/lembaga.html', data)
+
+@pegawaiadmin_area
+def tambah_lembaga(request):
+    form = LembagaForm(request.POST or None, request.FILES or None)
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect("/pegawaiadmin/lembaga/")
+        pass
+
+    data = {
+        'sessionnya' : request.session['jenis_akun'],
+        'namaakun' : request.session['namapegawai'],
+        'form':UserForm(),
+    }
+    return render(request, 'hal_admin/pegawaiadmin/lembaga_tambah.html', data)
+
+@pegawaiadmin_area
+def edit_lembaga(request, id):
+    obj = get_object_or_404(Lembaga, id = id)
+    form = LembagaForm(request.POST or None, instance = obj)
+    
+    if form.is_valid(): 
+        form.save() 
+        return redirect("/pegawaiadmin/lembaga/")
+
+    data = {
+        'data' : obj,
+        'sessionnya' : request.session['jenis_akun'],
+        'namaakun' : request.session['namapegawai'],
+    }
+    return render(request, 'hal_admin/pegawaiadmin/lembaga_edit.html', data)
+
+@pegawaiadmin_area
+def hapus_lembaga(request, id):
+    dt = Lembaga.objects.get(id=id)
+    dt.delete()
+    return redirect("/pegawaiadmin/lembaga/")
 
 @pegawaiadmin_area
 def tambah_user(request):

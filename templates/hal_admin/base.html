@@ -79,23 +79,6 @@
                                     </a>
                                 </li>
                         {% if sessionnya == "pegawai_admin" %}
-                        {% comment %} <li class="nav-item">
-                            <a class="nav-link" href="#navbar-pegawai" data-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="navbar-mhs">
-                                <i class="ni ni-single-02 text-primary"></i>
-                                <span class="nav-link-text">Pegawai</span>
-                            </a>
-                            <div class="collapse" id="navbar-pegawai">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="{% url 'pegawaiadmin:pegawai' %}" class="nav-link">Data Pegawai</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{% url 'pegawaiadmin:user' %}" class="nav-link">Data Akun</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li> {% endcomment %}
                         <li class="nav-item">
                             <a class="nav-link" href="#navbar-pas" data-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="navbar-mhs">
@@ -138,7 +121,7 @@
                                         <a href="#" class="nav-link">Data Daerah</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">Data Lembaga</a>
+                                        <a href="{% url 'pegawaiadmin:lembaga' %}" class="nav-link">Data Lembaga</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">Data Diagnosa</a>
@@ -153,12 +136,6 @@
                                 <span class="nav-link-text">Pendaftaran Antrian</span>
                             </a>
                         </li>
-                        {% comment %} <li class="nav-item">
-                            <a class="nav-link" href="{% url 'pegawaiadmin:pembayaran' %}">
-                                <i class="fas fa-bullhorn text-green"></i>
-                                <span class="nav-link-text">Pembayaran</span>
-                            </a>
-                        </li> {% endcomment %}
                         {% elif sessionnya == "dokter" or sessionnya == "dokter_gigi"  %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'dokter:antrian_pasien' %}">
@@ -172,27 +149,6 @@
                                 <span class="nav-link-text">Rawat Inap</span>
                             </a>
                         </li>
-                        {% elif sessionnya == "pegawai_apotek" %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#navbar-pegawai" data-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="navbar-mhs">
-                                <i class="fas fa-capsules text-red"></i>
-                                <span class="nav-link-text">Obat</span>
-                            </a>
-                            <div class="collapse" id="navbar-pegawai">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="{% url 'apoteker:index_obat' %}" class="nav-link">Data Obat</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        {% comment %} <li class="nav-item">
-                            <a class="nav-link" href="{% url 'apoteker:antrian_obat' %}">
-                                <i class="fas fa-users text-red"></i>
-                                <span class="nav-link-text">Antrian Obat</span>
-                            </a>
-                        </li> {% endcomment %}
                         {% endif %}
                     </ul>
                 </div>
@@ -208,16 +164,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Search form -->
                     <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
-                        {% comment %} <div class="form-group mb-0">
-                            <div class="input-group input-group-alternative input-group-merge">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-search"></i>
-                                    </span>
-                                </div>
-                                <input class="form-control" placeholder="Search" type="text">
-                            </div>
-                        </div> {% endcomment %}
                         <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"
                             aria-label="Close">
                             <span aria-hidden="true">×</span>

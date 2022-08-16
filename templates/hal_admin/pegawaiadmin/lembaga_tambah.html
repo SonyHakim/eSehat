@@ -1,7 +1,7 @@
 {% extends "hal_admin/base.html" %}{% load static %}
 
 {% block title %}
-Data User
+Data Pegawai
 {% endblock title %}
 {% block header %}
 <link rel="stylesheet" href="{% static 'hal_admin/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %} ">
@@ -17,7 +17,7 @@ Data User
     <div class="header-body">
       <div class="row align-items-center py-4">
         <div class="col-lg-6 col-7">
-          <h6 class="h2 text-white d-inline-block mb-0">Tambah Data User</h6>
+          <h6 class="h2 text-white d-inline-block mb-0">Tambah Data Lembaga</h6>
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
               <li class="breadcrumb-item">
@@ -25,8 +25,8 @@ Data User
                   <i class="fas fa-home"></i>
                 </a>
               </li>
-              <li class="breadcrumb-item"><a href="{% url 'pegawaiadmin:user' %}">User</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Tambah User</li>
+              <li class="breadcrumb-item"><a href="{% url 'pegawaiadmin:pegawai' %}">Data Lembaga</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Tambah Data Lembaga</li>
             </ol>
           </nav>
         </div>
@@ -48,65 +48,25 @@ Data User
       <div class="card">
         <!-- Card header -->
         <div class="card-header">
-          <h3 class="mb-0">Tambah Data User Baru</h3>
+          <h3 class="mb-0">Tambah Data Lembaga</h3>
         </div>
         <!-- Card body -->
         <div class="card-body">
           <form method="post">
             {% csrf_token %}
-            <!-- <p>
-                      <label for="id_norm">Norm:</label>
-                       <input type="text" name="norm" maxlength="25" required id="id_norm" value="{{ norm }}">
-                      </p>
-                    <p>
-                      <label for="id_namapasien">Namapasien:</label> 
-                      <input type="text" name="namapasien" maxlength="200" required id="id_namapasien">
-                    </p>
-                    <p>
-                      <label for="id_alamat">Alamat:</label> 
-                      <textarea name="alamat" cols="40" rows="10" id="id_alamat">
-                    </textarea></p>
-                    <p><label for="id_ttl">Ttl:</label> <input type="text" name="ttl" required id="id_ttl"></p>
-                    <p><label for="id_notelp">Notelp:</label> <input type="text" name="notelp" maxlength="15" required id="id_notelp"></p> -->
-            <!-- <table>{{ form.as_p }}</table> -->
-
             <div class="form-group row">
-                <label for="example-text-input" class="col-md-2 col-form-label form-control-label">Akun</label>
-                <div class="col-md-10">
-                    <input class="form-control" type="text" name="akun" maxlength="200" required
-                    placeholder="Masukkan akun" id="example-text-input">
-                </div>
-            </div>
-            <div class="form-group row">
-              <label for="example-text-input" class="col-md-2 col-form-label form-control-label">Nama</label>
+              <label for="example-text-input" class="col-md-2 col-form-label form-control-label">Nama Lembaga</label>
               <div class="col-md-10">
-                  <input class="form-control" type="text" name="akun" maxlength="200" required
-                  placeholder="Masukkan akun" id="example-text-input">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="example-norm" class="col-md-2 col-form-label form-control-label">Jenis Akun</label>
-              <div class="col-md-10">
-                <!-- <input class="form-control" maxlength="15" required name="notelp" type="tel" placeholder="40-(770)-888-444" > -->
-                <select class="form-control" id="example-norm" name="jenis_kelamin" required data-toggle="select">
-                  <option value={{null}}>---- Pilih Jenis Akun ----</option>
-                  <option value="dokter">Dokter</option>
-                  <option value="dokter_gigi">Dokter Gigi</option>
-                  <option value="dokter_kia">Dokter KIA</option>
-                  <option value="dokter_gizi">Dokter Gizi</option>
-                  <option value="pegawai_admin">Pegawai Admin</option>
-                  <option value="perawat">Perawat</option>
-                </select>
+                <input class="form-control" type="text" name="nama_lembaga" maxlength="200" required
+                  placeholder="Masukkan Nama Lembaga" id="example-text-input">
               </div>
             </div>
             <button class="btn btn-primary" type="submit">Simpan</button>
-
           </form>
         </div>
       </div>
     </div>
   </div>
-  <!-- Argon Scripts -->
 
   {% endblock konten %}
 
