@@ -4,12 +4,13 @@ from django.http import HttpResponseRedirect, HttpResponse
 from pymysql import NULL
 from pegawaiadmin.decorators import pegawaiadmin_area
 from pegawaiadmin.models import Pendaftaran, Antrian, BiayaPemeriksaan, Pembayaran
-from dokter.models import RekamMedis, RawatInap
+from dokter.models import RekamMedis, RawatInap, Diagnosa
 from datetime import date
-from pasien.models import Pasien, Lembaga
+from pasien.models import Pasien, Lembaga, Daerah
 from akun.models import DataPegawai, Akun
 from akun.forms import DataPegawaiForm, UserForm
-from pegawaiadmin.forms import AntrianForm, PendaftaranForm, LembagaForm
+from pegawaiadmin.forms import AntrianForm, PendaftaranForm, LembagaForm, DaerahForm
+from dokter.forms import DiagnosaForm
 from django.utils import timezone
 import datetime
 # from apoteker.models import PemesananObat
@@ -78,6 +79,121 @@ def hapus_pegawai(request, id):
     return redirect("/pegawaiadmin/pegawai/")
 
 @pegawaiadmin_area
+def get_diagnosa(request):
+    hasil = Diagnosa.objects.all()
+
+    data = {
+        'sessionnya' : request.session['jenis_akun'],
+        'namaakun' : request.session['namapegawai'],
+        'data': hasil
+    }
+    return render(request, 'hal_admin/master_data/diagnosa.html', data)
+
+@pegawaiadmin_area
+def tambah_diagnosa(request):
+    form = DiagnosaForm(request.POST or None, request.FILES or None)
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect("/pegawaiadmin/diagnosa/")
+    pass
+
+    data = {
+        'sessionnya' : request.session['jenis_akun'],
+        'namaakun' : request.session['namapegawai'],
+        'form':DiagnosaForm(),
+    }
+    return render(request, 'hal_admin/master_data/diagnosa_tambah.html', data)
+
+@pegawaiadmin_area
+def edit_diagnosa(request, id):
+    obj = get_object_or_404(Diagnosa, id = id)
+    form = DiagnosaForm(request.POST or None, instance = obj)
+    
+    if form.is_valid(): 
+        form.save() 
+        return redirect("/pegawaiadmin/diagnosa/")
+
+    data = {
+        'data' : obj,
+        'sessionnya' : request.session['jenis_akun'],
+        'namaakun' : request.session['namapegawai'],
+    }
+    return render(request, 'hal_admin/master_data/diagnosa_edit.html', data)
+
+
+@pegawaiadmin_area
+def hapus_diagnosa(request, id):
+    dt = Diagnosa.objects.get(id=id)
+    dt.delete()
+    return redirect("/pegawaiadmin/diagnosa/")
+
+@pegawaiadmin_area
+def get_daerah(request):
+    hasil = Daerah.objects.all()
+
+    data = {
+        'sessionnya' : request.session['jenis_akun'],
+        'namaakun' : request.session['namapegawai'],
+        'data': hasil
+    }
+    return render(request, 'hal_admin/master_data/daerah.html', data)
+
+@pegawaiadmin_area
+def view_laporanpemeriksaan(request):
+    hasil = RekamMedis.objects.all()
+
+    data = {
+        'sessionnya' : request.session['jenis_akun'],
+        'namaakun' : request.session['namapegawai'],
+        'data': hasil
+    }
+    return render(request, 'hal_admin/pegawaiadmin/laporan_pemeriksaan.html', data)
+
+
+@pegawaiadmin_area
+def tambah_daerah(request):
+    form = DaerahForm(request.POST or None, request.FILES or None)
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect("/pegawaiadmin/daerah/")
+        pass
+
+    data = {
+        'sessionnya' : request.session['jenis_akun'],
+        'namaakun' : request.session['namapegawai'],
+        'form':DaerahForm(),
+    }
+    return render(request, 'hal_admin/master_data/daerah_tambah.html', data)
+
+@pegawaiadmin_area
+def edit_daerah(request, id):
+    obj = get_object_or_404(Daerah, id = id)
+    form = DaerahForm(request.POST or None, instance = obj)
+    
+    if form.is_valid(): 
+        form.save() 
+        return redirect("/pegawaiadmin/daerah/")
+
+    data = {
+        'data' : obj,
+        'sessionnya' : request.session['jenis_akun'],
+        'namaakun' : request.session['namapegawai'],
+    }
+    return render(request, 'hal_admin/master_data/daerah_edit.html', data)
+
+
+
+@pegawaiadmin_area
+def hapus_daerah(request, id):
+    dt = Daerah.objects.get(id=id)
+    dt.delete()
+    return redirect("/pegawaiadmin/daerah/")
+
+@pegawaiadmin_area
 def get_lembaga(request):
     hasil = Lembaga.objects.all()
 
@@ -86,7 +202,7 @@ def get_lembaga(request):
         'namaakun' : request.session['namapegawai'],
         'data': hasil
     }
-    return render(request, 'hal_admin/pegawaiadmin/lembaga.html', data)
+    return render(request, 'hal_admin/master_data/lembaga.html', data)
 
 @pegawaiadmin_area
 def tambah_lembaga(request):
@@ -101,9 +217,9 @@ def tambah_lembaga(request):
     data = {
         'sessionnya' : request.session['jenis_akun'],
         'namaakun' : request.session['namapegawai'],
-        'form':UserForm(),
+        'form':LembagaForm(),
     }
-    return render(request, 'hal_admin/pegawaiadmin/lembaga_tambah.html', data)
+    return render(request, 'hal_admin/master_data/lembaga_tambah.html', data)
 
 @pegawaiadmin_area
 def edit_lembaga(request, id):
@@ -119,7 +235,7 @@ def edit_lembaga(request, id):
         'sessionnya' : request.session['jenis_akun'],
         'namaakun' : request.session['namapegawai'],
     }
-    return render(request, 'hal_admin/pegawaiadmin/lembaga_edit.html', data)
+    return render(request, 'hal_admin/master_data/lembaga_edit.html', data)
 
 @pegawaiadmin_area
 def hapus_lembaga(request, id):

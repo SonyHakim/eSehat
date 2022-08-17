@@ -30,9 +30,17 @@ urlpatterns=[
     path('editlembaga/<int:id>', views.edit_lembaga,name='editlembaga'),
     path('hapuslembaga/<int:id>', views.hapus_lembaga,name='hapuslembaga'),
 
+    path('daerah/', views.get_daerah,name='daerah'),
+    path('tambahdaerah/', views.tambah_daerah,name='tambahdaerah'),
+    path('editdaerah/<int:id>', views.edit_daerah,name='editdaerah'),
+    path('hapusdaerah/<int:id>', views.hapus_daerah,name='hapusdaerah'),
 
-    
+    path('diagnosa/', views.get_diagnosa,name='diagnosa'),
+    path('tambahdiagnosa/', views.tambah_diagnosa,name='tambahdiagnosa'),
+    path('editdiagnosa/<int:id>', views.edit_diagnosa,name='editdiagnosa'),
+    path('hapusdiagnosa/<int:id>', views.hapus_diagnosa,name='hapusdiagnosa'),
 
+    path('laporanpemeriksaan', views.view_laporanpemeriksaan,name='laporanpemeriksaan'),
 
 
     # path('logout/',views.user_logout,name='user_logout'),

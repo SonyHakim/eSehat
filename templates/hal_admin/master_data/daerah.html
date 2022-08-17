@@ -22,7 +22,7 @@
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">Data Pasien</h6>
+                    <h6 class="h2 text-white d-inline-block mb-0">Data Daerah</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item">
@@ -30,15 +30,14 @@
                                     <i class="fas fa-home"></i>
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Pasien</li>
+                            <li class="breadcrumb-item active" aria-current="page">Daerah</li>
                         </ol>
                     </nav>
                 </div>
                 <div class="col-lg-6 col-5 text-right">
                     <a
-                        href="{% url 'pegawaiadmin:tambahpasien' %}"
-                        class="btn btn-sm btn-neutral">Tambah Data Pasien</a>
-                    <!--  -->
+                        href="{% url 'pegawaiadmin:tambahdaerah' %}"
+                        class="btn btn-sm btn-neutral">Tambah Daerah</a>
                 </div>
             </div>
         </div>
@@ -50,41 +49,23 @@
     <div class="row">
         <div class="col">
             <div class="card">
-                <!-- Card header -->
-                <div class="card-header">
-                    <h3 class="mb-0">Data Pasien Klinik Az-Zainiyah</h3>
-                    <p class="text-sm mb-0">
-                        Berikut ini adalah data pasien yang ada di Klinik Az-Zainiyah.
-                    </p>
-                </div>
                 <div class="table-responsive py-4">
                     <table class="table table-flush" id="datatable-buttons">
                         <thead class="thead-light">
                             <tr>
-                                <th>No RM</th>
-                                <th>Nama Pasien</th>
-                                <th>Alamat Pasien</th>
-                                <th>TTL</th>
-                                <th>No Telp</th>
-                                <th>Jenis Pasien</th>
+                                <th>No.</th>
+                                <th>Nama Daerah</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for pasien in data %}
+                            {% for daerah in data %}
                             <tr>
-                                <td>{{pasien.norm}}</td>
-                                <td>{{pasien.namapasien}}</td>
-                                <td>{{pasien.alamat}}</td>
-                                <td>{{pasien.ttl}}</td>
-                                <td>{{pasien.notelp}}</td>
-                                <td>{{pasien.status}}</td>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{daerah.nama_daerah}}</td>
                                 <td>
-                                    <input type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='{% url 'pegawaiadmin:editpasien' pasien.id  %}'" value=" Edit">
-                                    <a type="button" class="btn btn-outline-danger btn-sm" href="{% url 'pegawaiadmin:hapuspasien' pasien.id  %}" onclick="return confirm('Anda yakin mau menghapus data ini?');"> Hapus</a>
-                                    <!-- <input type="button" class="btn btn-outline-danger" data-confirm="Are you sure to delete this item?" onclick="location.href='/hapusjenjang/{{data.id_pendidikan}}';" value=" Delete" /> -->
-                                    
-                                  </td>                               
+                                    <input type="button" class="btn btn-outline-info btn-sm" onclick="location.href='{% url 'pegawaiadmin:editdaerah' daerah.id  %}'" value=" Edit">
+                                    <a type="button" class="btn btn-outline-danger btn-sm" href="{% url 'pegawaiadmin:hapusdaerah' daerah.id  %}" onclick="return confirm('Anda yakin mau menghapus data ini?');"> Hapus</a></td>
                             </tr>
                             {% endfor %}                            
                         </tbody>
