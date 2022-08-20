@@ -63,6 +63,7 @@
                                 <th>No Antrian</th>
                                 <th>No RM</th>
                                 <th>Nama Pasien</th>
+                                <th>Gejala Awal</th>
                                 <th>Waktu Daftar Antrian</th>
                                 <th>Action</th>
                             </tr>
@@ -73,6 +74,7 @@
                                 <td>{{ps.idantrian.noantrian}}</td>
                                 <td>{{ps.idpendaftaran.norm.norm}}</td>
                                 <td>{{ps.idpendaftaran.norm.namapasien}}</td>
+                                <td>{{ps.idpendaftaran.gejalaawal}}</td>
                                 <td>{{ps.idpendaftaran.created_on|date:'H:i'}} WIB</td>
                                 <td>
                                    <input type="button" class="btn btn-success btn-sm" onclick="location.href='{% url 'dokter:periksa_pasien' ps.id  %}'" value="Periksa Pasien" />

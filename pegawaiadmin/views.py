@@ -311,7 +311,7 @@ def index(request):
 
 @pegawaiadmin_area
 def antrian(request):
-    hasil = Pendaftaran.objects.all().select_related('norm','antrian').filter(tglantrian__contains=date.today()).order_by('created_on')    
+    hasil = Pendaftaran.objects.all().select_related('norm','antrian').order_by('created_on')    
 
     data = {
         'sessionnya' : request.session['jenis_akun'],

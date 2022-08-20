@@ -52,8 +52,8 @@
                                 <td>{{ps.idantrian.noantrian}}</td>
                                 <td>{{ps.idpendaftaran.norm.norm}}</td>
                                 <td>{{ps.idpendaftaran.norm.namapasien}}</td>
-                                <td>{{ps.tanggal_masuk|date:'D M Y H:i'}}</td>
-                                <td>{{ps.tanggal_selesai|date:'D M Y H:i'}}</td>
+                                <td>{{ps.tanggal_masuk|date:'Y-m-d H:i'}}WIB</td>
+                                <td>{{ps.tanggal_selesai|date:'Y-m-d H:i'}}WIB</td>
                                 <td>
                                    <input type="button" class="btn btn-success btn-sm" onclick="location.href='{% url 'dokter:detail_rawatinap' ps.id  %}'" value="Detail" />
                                     <!--  <a type="button" class="btn btn-outline-danger" href="{% url 'pegawaiadmin:hapuspasien' ps.id  %}" onclick="return confirm('Anda yakin mau menghapus data ini?');">Delete</a> -->

@@ -79,7 +79,7 @@ Data Pasien
             <div class="form-group row">
               <label for="example-text" class="col-md-2 col-form-label form-control-label">No RM Pasien</label>
               <div class="col-md-10">
-                <input readonly name="norm" class="form-control" type="text" value="{{ data.idpendaftaran.norm.norm }}"
+                <input readonly name="norm" name="norm" class="form-control" type="text" value="{{ data.idpendaftaran.norm.norm }}"
                   id="example-text">
               </div>
             </div>
@@ -213,8 +213,9 @@ Data Pasien
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary" type="submit">Send Massage <i class="fa fa-paper-plane ml-2"></i> </button>
-            <button class="btn btn-warning " type="submit">Simpan <i class="fa fa-edit ml-2"></i></button>
+            {% comment %} <a type="button" class="btn btn-primary btn-sm" href="{% url 'dokter:kirimnotifikasi' data.id %}">Kirim Notifikasi</a> {% endcomment %}
+            {% comment %} <a class="btn btn-primary btn-sm" type="submit" name="kirimnotifikasi" value="kirimnotifikasi">Kirim Notifikasi <i class="fa fa-edit ml-2"></i></a> {% endcomment %}
+            <button class="btn btn-warning btn-sm" type="submit" name="simpan" value="simpan">Simpan <i class="fa fa-edit ml-2"></i></button>
           </form>
         </div>
       </div>

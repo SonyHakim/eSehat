@@ -106,6 +106,8 @@ Data Pasien
                 <!-- <input class="form-control" maxlength="15" required name="notelp" type="tel" placeholder="40-(770)-888-444" > -->
                 {% endcomment %}
                 <select class="form-control" id="example-norm" name="norm rekammedik" required data-toggle="select">
+                  <option value={{null}}>
+                    Cari Data Pasien</option>
                   {% for ps in data %}
                   <option value="{{ps.id}}" {% if dataDetail == ps.id %} selected="selected" {% endif %}>{{ps.norm}} |
                     {{ps.namapasien}}</option>
@@ -200,10 +202,10 @@ Data Pasien
                         </div>
                       </div> -->
             {% if sessionnya == "pegawai_admin" %}
-            <button class="btn btn-success" type="submit">Anamnesa</button>
+            <button class="btn btn-success btn-sm" type="submit">Anamnesa</button>
             {% endif %}
             {% if sessionnya == "perawat" %}
-            <button class="btn btn-primary" type="submit">Periksa</button>
+            <button class="btn btn-primary btn-sm" type="submit">Periksa</button>
             {% endif %}
           </form>
         </div>

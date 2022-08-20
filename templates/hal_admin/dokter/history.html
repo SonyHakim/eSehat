@@ -76,7 +76,7 @@ History Data Antrian
                                 <td>{{ps.idpendaftaran.norm.namapasien}}</td>
                                 <td>{{ps.idpendaftaran.created_on|date:'Y-m-d H:i'}} WIB</td>
                                 <td>
-                                   <input type="button" class="btn btn-primary" onclick="location.href='{% url 'dokter:periksa_pasien' ps.id  %}'" value="Lihat Pasien" />
+                                   <input type="button" class="btn-sm btn-primary" onclick="location.href='{% url 'dokter:periksa_pasien' ps.id  %}'" value="Lihat Pasien" />
                                     <!--  <a type="button" class="btn btn-outline-danger" href="{% url 'pegawaiadmin:hapuspasien' ps.id  %}" onclick="return confirm('Anda yakin mau menghapus data ini?');">Delete</a> -->
                                     
                                   </td>                               

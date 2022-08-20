@@ -11,9 +11,11 @@ urlpatterns=[
     path('historyperiksapasien/',views.history,name='history_pasien'),
     path('periksapasien/<int:id>',views.periksa,name='periksa_pasien'),
     path('view_rawatinap/<int:id>',views.view_rawatinap,name='view_rawatinap'),
+    path('kirimnotifikasi/<int:id>',views.kirim_notifikasi,name='kirimnotifikasi'),
+
     # path('cariobat/',views.cariobat,name='cari_obat'),
     # path('tambahobat/<int:id>',views.tambahobat,name='tambah_obat'),
-    path('hapusobat/<int:id>',views.hapusobat,name='hapus_obat'),
+    # path('hapusobat/<int:id>',views.hapusobat,name='hapus_obat'),
 
     # path('diagnosa/', views.diagnosa, name='diagnosa'),
 
